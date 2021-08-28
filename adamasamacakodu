@@ -1,0 +1,160 @@
+import random
+   #random kütüphanesi listeden bir kelimeyi rastgele seçmeye yarayacak.
+kelimeler = ["orangutan", "piton", "kurbağa", "kaplumbağa", "karınca", "tarantula", "maymun", "eşek", "ahtapot", "köpek",
+             "kedi", "keçi", "koyun", "inek", "tavuk","civciv","boğa","lama","zürafa","zebra","aslan","kaplan",
+             "kertenkele","sinek","yarasa","kelebek","kirpi","köstebek","anakonda","gelincik","kunduz","tilki","güvercin",
+             "sincap","kurt","solucan","hamster","papağan","kuğu"]
+kelime = random.choice(kelimeler)  # random kütüphanesinin .choice() adlı fonksiyonunu kullanarak rastgele bir kelime seçtik.
+tahminSayisi = 6   #oyununcunun hatasına göre azlacak tahmin hakkı sayısı belirledik.
+gecerli_harfler = ["a","b","c","ç","d","e","f","g","ğ","h","ı","i","j","k","l","m",
+                   "n","o","ö","p","q","r","s","ş","t","u","ü","v","w","x","y","z"]
+                   #kelimelerimizin içinde olabilecek tüm harfleri liste haline getirdik.
+print(" HAYVAN Adını Bulup Adamı Kurtarınız!.. ")
+print("6 Yanlış Tahmin Hakkınız Vardır.")
+
+harfler = []  # kullanicinin girdigi tum harfleri bu listeye ekleyerek tekrar ayni harf girilirse uyari vereceğiz.
+print("     --------  ")
+print("     |      |  ")
+print("            |  ")
+print("            |  ")
+print("            |  ")
+print("            |  ")
+print("            |  ")
+x = len(kelime)  # kelimenin kaç harfli olduğunu öğrendik.
+z = list('_' * x)  # harf sayısı kadar alt tre bastırdık.
+
+kalan_boşluk = x
+
+print("Kelime", ' '.join(z), end='\n')
+# join fonksiyonu alt treleri boşluk ile birleştirir.
+# Mesela s = ("a", "b", "c")  print "-".join(s) a-b-c olur. Öğeleri kısa çizgi ile birleştir.
+
+
+while tahminSayisi > 0:
+
+    girilen_harf = input("Bir harf tahmin edin : ").lower()
+    #.lower()inputla girilen tüm harflerin küçük algılanmasını ve hata almamayı sağlar.
+
+    if girilen_harf in harfler:
+        print("Lütfen daha önce denemediğiniz bir harf deneyin!")
+        continue
+
+    if girilen_harf not in gecerli_harfler:
+        print("Lütfen geçerli bir ifade giriniz!")
+        continue
+
+
+    # girilen harf kelimenin içinde yoksa tahmin sayısından bir düşecek
+    elif girilen_harf not in kelime:
+        tahminSayisi -= 1
+        print("Yanlış tahmin! {} tane tahmin hakkınız kaldı.".format(tahminSayisi))
+        # format fonksiyonu kalan tahmin sayısını {} yerine yazacak.
+
+    # girilen harf kelimede varsa harfi yerine yazacak.
+    else:
+        for i in range(len(kelime)):
+            if girilen_harf == kelime[i]:
+                z[i] = girilen_harf
+
+                kalan_boşluk -= len(z[i]) #girilen harf sayısı kadar kalan boşluk sayısından düşecek.
+
+        print(' '.join(z))  # harf eklenmiş döngüyü yazdıracak.
+
+        if kalan_boşluk == 0:
+            print("TEBRİKLER KAZANDINIZ!..")
+            break
+
+    # harfler listesine girilen harfi ekleyecek
+    harfler.append(girilen_harf)
+    print("Girilen harfler", harfler)
+
+    #oyuncuya kelimenin tümünü belirli sayıda harf girildikten sonra soran komut.
+    if kalan_boşluk <= len(kelime)/2:
+        cevap = input("Kelimeyi Tahmin Etmek İster Misiniz? E/H ").lower()   #.lower() bize inputta girilen tüm harfleri küçük yapacak.
+
+        if cevap == "e":
+            kelime_tahmini = input("Lütfen Kelimeyi Giriniz : ").lower()
+            if kelime_tahmini == kelime:
+                print("TEBRİKLER KAZANDINIZ!.. ")
+                break
+            else:
+                tahminSayisi -= 1
+                print("Yanlış Tahmin Ettiniz {} Tahmin Hakkınız Kaldı!".format(tahminSayisi))
+
+        elif cevap=="h":
+            continue
+
+        else:
+            print("Geçersiz Harf Girdiniz! ")
+            continue
+
+    if tahminSayisi == 5:
+        print("     --------  ")
+        print("     |      |  ")
+        print("     O      |  ")
+        print("            |  ")
+        print("            |  ")
+        print("            |  ")
+        print("            |  ")
+
+        print("Kelime", ' '.join(z))
+
+    if tahminSayisi == 4:
+        print("     --------  ")
+        print("     |      |  ")
+        print("     O      |  ")
+        print("     |      |  ")
+        print("     |      |  ")
+        print("            |  ")
+        print("            |  ")
+
+        print("Kelime", ' '.join(z))
+
+    if tahminSayisi == 3:
+        print("     --------  ")
+        print("     |      |  ")
+        print("     O      |  ")
+        print("    /|      |  ")
+        print("     |      |  ")
+        print("            |  ")
+        print("            |  ")
+
+        print("Kelime", ' '.join(z))
+
+    if tahminSayisi == 2:
+        print("     --------  ")
+        print("     |      |  ")
+        print("     O      |  ")
+        print("    /|\     |  ")
+        print("     |      |  ")
+        print("            |  ")
+        print("            |  ")
+
+        print("Kelime", ' '.join(z))
+
+    if tahminSayisi == 1:
+        print("     --------  ")
+        print("     |      |  ")
+        print("     O      |  ")
+        print("    /|\     |  ")
+        print("     |      |  ")
+        print("    /       |  ")
+        print("            |  ")
+
+        print("Kelime", ' '.join(z))
+
+    if tahminSayisi == 0:
+        print("     --------  ")
+        print("     |      |  ")
+        print("     O      |  ")
+        print("    /|\     |  ")
+        print("     |      |  ")
+        print("    / \     |  ")
+        print("            |  ")
+        print("KAYBETTİNİZ,ADAM ASILDI!")
+        print("Kelimeniz:", kelime )
+        break
+
+
+
+
